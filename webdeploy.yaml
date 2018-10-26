@@ -1,0 +1,35 @@
+---
+- hosts: Webservers
+  tasks:
+  - name: Install package
+    yum:
+      name: "{{ item }}"
+      state: latest
+    loop:
+     - httpd
+     - mariadb-server
+  - name: Copy httpd.conf
+    copy:
+      src: /home/ec2-user/environment/ansibleautomation/httpd.conf
+      dest: /etc/httpd/conf/
+    notify: "Restart Apache"
+  - name: Copy index.html to webserver
+    copy:
+      src: /home/ec2-user/environment/ansibleautomation/index.html
+      dest: /var/www/html
+  - name: Start the service
+    service:
+      name: "{{ item }}"
+      state: started
+      enabled: yes
+    loop:
+     - httpd
+     - mariadb
+  handlers:
+  - name: Restart Apache
+    service:
+      name: "{{ item }}"
+      state: restarted
+    loop:
+     - httpd
+     - mariadb
