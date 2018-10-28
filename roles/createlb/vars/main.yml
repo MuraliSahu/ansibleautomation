@@ -1,0 +1,7 @@
+---
+vpcid: vpc-0e50babec19c3e2f0
+subnetid: 
+  - subnet-00032d5a277420605
+  - subnet-00d0d985b671132c6
+region: us-east-1
+sgname: Loadbalance_Grp

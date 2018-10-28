@@ -1,0 +1,16 @@
+- name: example using security group rule descriptions
+  ec2_group:
+    aws_secret_key: "{{ SECRET }}"
+    aws_access_key: "{{ ACCESS }}"
+    region: "{{ region }}"
+    name: "{{ sgname }}"
+    description: sg with rule descriptions
+    vpc_id: "{{ vpcid }}"
+    rules:
+      - proto: tcp
+        ports:
+         - 80
+         - 22
+        cidr_ip: 0.0.0.0/0
+        rule_desc: allow all on port 80
+  register: MKSecurityGrp_output

@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  tasks:
+  - include_role:
+       name: createawsvm
+  - include_role:
+       name: SSHwait
+  - include_role:
+       name: addhosts
+- hosts: webinstances
+  tasks:
+  - include_role:
+       name: webserver
+- hosts: localhost
+  tasks:
+  - include_role:
+       name: createlb

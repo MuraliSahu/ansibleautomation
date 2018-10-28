@@ -1,0 +1,4 @@
+- name: Create Security Group
+  include_tasks: sg.yml
+- name: Create VM
+  include_tasks: createvm.yml

@@ -1,0 +1,22 @@
+- name: Create EC2 instance
+  ec2:
+    aws_secret_key: "{{ SECRET }}"
+    aws_access_key: "{{ ACCESS }}"
+    region: "{{ region }}"
+    key_name: mykey
+    group_id: "{{ MKSecurityGrp_output.group_id }}"
+    instance_type: "{{ inst_type }}"
+    image: "{{ myAmi }}"
+    vpc_subnet_id: "{{ item[0] }}"
+    assign_public_ip: yes
+    instance_tags:
+      Name: "{{ item[1] }}"
+    count_tag:
+      Name: "{{ item[1] }}"
+    exact_count: 1
+    wait: yes
+    wait_timeout: 120
+  with_together:
+    - "{{ subnet_ID }}"
+    - "{{ vmname }}"
+  register: EC2_Output
